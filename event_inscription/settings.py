@@ -15,10 +15,11 @@ ALLOWED_HOSTS = ['*']
 # Django 4.0+ : l'en-tête Origin est vérifié — déclarez ici toutes
 # les origines depuis lesquelles le formulaire sera soumis.
 CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:8000',
-    'http://localhost:8000',
+    'https://127.0.0.1',
     'http://127.0.0.1',
     'http://localhost',
+    'http://localhost:8000',
+    'https://formulaire-masterclass.onrender.com',
 ]
 
 # Application definition
@@ -107,3 +108,4 @@ EVENT_LIEU = "Lokossa – Salle OBB (ENSET)"
 
 # Messages
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
