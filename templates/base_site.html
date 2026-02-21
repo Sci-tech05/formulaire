@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Masterclass Admin{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        {# Décommentez et ajoutez votre logo dans static/img/logo.png #}
+        {# <img src="{% static 'img/logo.png' %}" alt="Logo" height="36"
+            style="margin-right:10px;vertical-align:middle;"> #}
+        Masterclass 2026
+    </a>
+</h1>
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/custom.css' %}">
+{% endblock %}
