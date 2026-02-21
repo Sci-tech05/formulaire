@@ -6,6 +6,7 @@ pillow>=10.0.0
 django-import-export>=3.3.0
 openpyxl>=3.1.0
 whitenoise==6.8.2
+django-jazzmin>=3.0.0
 
 
 
