@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Liste des participants – Masterclass</title>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 15mm 12mm 15mm 12mm;
+
+            @bottom-center {
+                content: "Page " counter(page) " / " counter(pages);
+                font-size: 8pt;
+                color: #94a3b8;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 9pt;
+            color: #1e293b;
+            background: #fff;
+        }
+
+        /* ── En-tête ── */
+        .header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding-bottom: 8mm;
+            border-bottom: 3px solid #1d4ed8;
+            margin-bottom: 6mm;
+        }
+
+        .header-left .badge {
+            display: inline-block;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-size: 7pt;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 3mm;
+        }
+
+        .header-left h1 {
+            font-size: 16pt;
+            font-weight: 800;
+            color: #1e3a8a;
+            line-height: 1.2;
+        }
+
+        .header-left h1 span {
+            display: block;
+            font-size: 9pt;
+            font-weight: 500;
+            color: #64748b;
+            margin-top: 1mm;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .header-right .meta {
+            font-size: 8pt;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        .header-right .meta strong {
+            color: #1e293b;
+        }
+
+        /* ── Stats bar ── */
+        .stats {
+            display: flex;
+            gap: 5mm;
+            margin-bottom: 6mm;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: #f8faff;
+            border: 1px solid #e0e7ff;
+            border-radius: 4mm;
+            padding: 3mm 5mm;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-size: 18pt;
+            font-weight: 800;
+            color: #1d4ed8;
+            line-height: 1;
+        }
+
+        .stat-card .stat-label {
+            font-size: 7pt;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1mm;
+        }
+
+        /* ── Tableau ── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            background: #1d4ed8;
+            color: #fff;
+        }
+
+        thead th {
+            padding: 3mm 3mm;
+            font-size: 7.5pt;
+            font-weight: 700;
+            text-align: left;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f8faff;
+        }
+
+        tbody tr:hover {
+            background: #eff6ff;
+        }
+
+        tbody td {
+            padding: 2.5mm 3mm;
+            font-size: 8.5pt;
+            vertical-align: middle;
+        }
+
+        .ticket-cell {
+            font-family: 'Courier New', monospace;
+            font-size: 8pt;
+            font-weight: 700;
+            color: #1d4ed8;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 3px;
+            padding: 1px 5px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .num-cell {
+            color: #94a3b8;
+            font-size: 7.5pt;
+            font-weight: 600;
+            text-align: center;
+            width: 8mm;
+        }
+
+        .name-cell {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .whatsapp-cell {
+            font-family: 'Courier New', monospace;
+            font-size: 8pt;
+            color: #374151;
+        }
+
+        .etab-cell {
+            color: #6b7280;
+            font-style: italic;
+            font-size: 8pt;
+        }
+
+        .date-cell {
+            color: #94a3b8;
+            font-size: 7.5pt;
+            white-space: nowrap;
+        }
+
+        /* ── Pied de document ── */
+        .footer {
+            margin-top: 8mm;
+            padding-top: 4mm;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 7.5pt;
+            color: #94a3b8;
+        }
+
+        .footer-stamp {
+            font-size: 7.5pt;
+            color: #94a3b8;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- En-tête -->
+    <div class="header">
+        <div class="header-left">
+            <div class="badge">🎓 Document officiel</div>
+            <h1>
+                Masterclass Étudiant Entrepreneur
+                <span>Lancer un business rentable pendant vos études</span>
+            </h1>
+        </div>
+        <div class="header-right">
+            <div class="meta">
+                <strong>📅 Date</strong> : 21 Mars 2026<br>
+                <strong>🕕 Heure</strong> : 18h00<br>
+                <strong>📍 Lieu</strong> : Lokossa – Salle OBB (ENSET)<br>
+                <strong>🖨 Généré le</strong> : {{ generated_at|date:"d/m/Y à H\hi" }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-value">{{ total }}</div>
+            <div class="stat-label">Inscrits dans ce PDF</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">{{ max_places }}</div>
+            <div class="stat-label">Capacité totale</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">{{ places_restantes }}</div>
+            <div class="stat-label">Places restantes</div>
+        </div>
+    </div>
+
+    <!-- Tableau -->
+    <table>
+        <thead>
+            <tr>
+                <th style="width:8mm">#</th>
+                <th style="width:24mm">Ticket</th>
+                <th>Nom Prénom</th>
+                <th style="width:30mm">WhatsApp</th>
+                <th>Établissement</th>
+                <th style="width:24mm">Inscrit le</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in participants %}
+            <tr>
+                <td class="num-cell">{{ forloop.counter }}</td>
+                <td><span class="ticket-cell">{{ p.ticket_number }}</span></td>
+                <td class="name-cell">{{ p.prenom }} {{ p.nom }}</td>
+                <td class="whatsapp-cell">{{ p.whatsapp }}</td>
+                <td class="etab-cell">{{ p.etablissement|default:"—" }}</td>
+                <td class="date-cell">{{ p.created_at|date:"d/m/Y H\hi" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="text-align:center;padding:8mm;color:#94a3b8;font-style:italic;">
+                    Aucun participant sélectionné.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pied -->
+    <div class="footer">
+        <div class="footer-text">
+            Liste des participants – Masterclass Étudiant Entrepreneur • Lokossa, ENSET
+        </div>
+        <div class="footer-stamp">
+            Total exporté : <strong>{{ total }}</strong> participant{% if total > 1 %}s{% endif %}
+        </div>
+    </div>
+
+</body>
+
+</html>
