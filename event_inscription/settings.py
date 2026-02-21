@@ -94,13 +94,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']               # Tes fichiers perso (si tu en as)
 STATIC_ROOT = BASE_DIR / 'staticfiles'                 # Où collectstatic copie tout
 
-# WhiteNoise configuration (pour Django 4.2+ / 5.x)
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",   
     },
 }
 
@@ -182,3 +181,4 @@ JAZZMIN_UI_TWEAKS = {
         'success': 'btn-success',
     },
 }
+
