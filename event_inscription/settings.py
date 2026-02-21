@@ -5,15 +5,14 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-masterclass-etudiant-entrepreneur-2026-lokossa-obb-enset'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-masterclass-etudiant-entrepreneur-2026-lokossa-obb-enset')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'   # → False sur Render (ajoute env var DEBUG=False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'formulaire-masterclass.onrender.com']
 
-# Django 4.0+ : l'en-tête Origin est vérifié — déclarez ici toutes
-# les origines depuis lesquelles le formulaire sera soumis.
+# CSRF (obligatoire depuis Django 4.0+ pour les POST en HTTPS)
 CSRF_TRUSTED_ORIGINS = [
     'https://127.0.0.1',
     'http://127.0.0.1',
@@ -39,6 +38,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',          # ← Ajouté ici (très important !)
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -67,7 +67,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'event_inscription.wsgi.application'
 
-# Database
+# Database (SQLite OK pour petit projet, sinon passe à PostgreSQL sur Render)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -89,12 +89,22 @@ TIME_ZONE = 'Africa/Porto-Novo'
 USE_I18N = True
 USE_TZ = True
 
-# Static files
+# Static files (CSS, JavaScript, Images) — Crucial pour Jazzmin + admin
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']               # Tes fichiers perso (si tu en as)
+STATIC_ROOT = BASE_DIR / 'staticfiles'                 # Où collectstatic copie tout
 
-# Media files
+# WhiteNoise configuration (pour Django 4.2+ / 5.x)
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# Media files (si tu ajoutes des uploads plus tard)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -112,37 +122,22 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 # ─── Jazzmin (thème admin) ─────────────────────────────────────────────────
 JAZZMIN_SETTINGS = {
-    # Titre affiché dans la barre de navigation et l'onglet
     'site_title': 'Masterclass Admin',
     'site_header': 'Masterclass',
     'site_brand': 'Masterclass 2026',
-
-    # Logo (placer le fichier dans static/img/logo.png)
-    # 'site_logo': 'img/logo.png',
+    # 'site_logo': 'img/logo.png',          # décommente si tu ajoutes un logo
     # 'login_logo': 'img/logo.png',
-
-    # Icône de l'onglet navigateur
     'site_icon': None,
-
-    # Texte de la page de connexion
     'welcome_sign': 'Bienvenue dans l\'espace administration',
-
-    # Liens rapides dans la barre de navigation
     'topmenu_links': [
         {'name': 'Accueil', 'url': 'admin:index', 'permissions': ['auth.view_user']},
         {'model': 'registration.Participant'},
     ],
-
-    # Liens dans le menu utilisateur (en haut à droite)
     'usermenu_links': [
         {'name': 'Voir le site', 'url': '/', 'new_window': True},
     ],
-
-    # Barre latérale toujours visible
     'show_sidebar': True,
     'navigation_expanded': True,
-
-    # Icônes des modèles
     'icons': {
         'auth': 'fas fa-users-cog',
         'auth.user': 'fas fa-user',
@@ -151,12 +146,8 @@ JAZZMIN_SETTINGS = {
     },
     'default_icon_parents': 'fas fa-chevron-circle-right',
     'default_icon_children': 'fas fa-circle',
-
-    # Thème de couleur : darkly | flatly | cosmo | simplex | lumen …
-    'theme': 'darkly',
+    'theme': 'darkly',                     # ou 'flatly', 'cosmo', etc.
     'dark_mode_theme': 'darkly',
-
-    # Interface plus compacte
     'related_modal_active': True,
     'show_ui_builder': False,
 }
