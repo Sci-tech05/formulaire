@@ -111,10 +111,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Event configuration
 EVENT_MAX_PLACES = 100
-EVENT_TITLE = "Étudiant Entrepreneur – Lancer un business rentable pendant vos études"
-EVENT_DATE = "21 Mars 2026"
+EVENT_TITLE = "Étudiant Entrepreneur – DE ZERO IDEE A OFFRE VENDABLE"
+EVENT_DATE = "28 Mars 2026"
 EVENT_HEURE = "18h"
-EVENT_LIEU = "Lokossa – Salle OBB (ENSET)"
+EVENT_LIEU = "Lokossa – Salle OBB (ENSET)
 
 # Messages
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
@@ -181,4 +181,5 @@ JAZZMIN_UI_TWEAKS = {
         'success': 'btn-success',
     },
 }
+
 
