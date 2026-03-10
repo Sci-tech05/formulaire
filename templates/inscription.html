@@ -38,47 +38,7 @@
                     <span>📍</span> <span class="font-medium">Lokossa – Salle OBB (ENSET)</span>
                 </div>
             </div>
-
-            <!-- Compteur de places -->
-            <div class="mt-7 w-full max-w-xs mx-auto">
-                {% if inscriptions_closes %}
-                <div class="flex items-center justify-center gap-2 bg-red-500/90 backdrop-blur
-                            text-white font-bold px-6 py-3 rounded-2xl text-sm shadow-lg border border-red-400/50">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    Inscriptions closes – 100 places atteintes
-                </div>
-                {% else %}
-                <div class="bg-white/15 backdrop-blur-sm border border-white/25 rounded-2xl px-5 py-3.5">
-                    <!-- Ligne texte -->
-                    <div class="flex items-center justify-between mb-2.5">
-                        <span class="text-white text-xs font-semibold flex items-center gap-1.5">
-                            {% if places_restantes <= 10 %} <span
-                                class="inline-block w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
-                        {% else %}
-                        <span class="inline-block w-2 h-2 rounded-full bg-green-400"></span>
-                        {% endif %}
-                        {% if places_restantes == 1 %}
-                        <strong>1 place</strong>&nbsp;restante
-                        {% else %}
-                        <strong>{{ places_restantes }} places</strong>&nbsp;restantes
-                        {% endif %}
-                        </span>
-                        <span class="text-white/60 text-xs font-medium tabular-nums">
-                            {{ inscrits }}&nbsp;/&nbsp;{{ max_places }}
-                        </span>
-                    </div>
-                    <!-- Barre de progression -->
-                    <div class="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
-                        <div class="h-full rounded-full transition-all duration-700
-                                    {% if places_restantes <= 10 %}bg-orange-400{% else %}bg-green-400{% endif %}"
-                            x-data x-bind:style="'width: ' + '{{ inscrits_percent }}' + '%'"></div>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
+            
         </div>
     </header>
 
@@ -494,4 +454,5 @@
         Masterclass Étudiant Entrepreneur &bull; {{ event_date }} &bull; {{ event_lieu }}
     </footer>
 </div>
+
 {% endblock %}
